@@ -40,7 +40,7 @@ SKILL_KEYWORDS = {
         "stitch", "stitching", "ashlar", "register", "align",
         "tile", "mosaic"
     ],
-    "imaging/background_subtraction_basic.md": [
+    "imaging/background_subtraction.md": [
         "background subtraction", "subtract background", "autofluorescence",
         "background_subtraction", "backsub"
     ],
