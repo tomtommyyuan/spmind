@@ -4,7 +4,7 @@ import os
 
 def read_module2api():
     fields = [
-        "imaging",
+        "registration",
         "phenoimager2mc",
         "basic_illumination",
         "background_subtraction",
@@ -12,8 +12,7 @@ def read_module2api():
         "segmentation_unmicst",
         "segmentation_s3segmenter",
         "quantification",
-        "clustering",
-        "bioimaging",
+        "clustering"
     ]
 
     module2api = {}

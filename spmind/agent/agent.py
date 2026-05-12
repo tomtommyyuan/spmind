@@ -226,7 +226,7 @@ class SPMindAgent:
 
 ### Image Preprocessing & Stitching
 - spmind.tool.basic_illumination: generate_illumination_profiles, batch_generate_illumination_profiles
-- spmind.tool.imaging: stitch_and_register_tiles_ashlar, align_cyclic_images_ashlar
+- spmind.tool.registration: stitch_and_register_tiles_ashlar, align_cyclic_images_ashlar
 - spmind.tool.background_subtraction: subtract_background
 
 ### TMA Dearraying (CRITICAL: Use this for TMA cores!)
@@ -268,7 +268,7 @@ For longer scripts, write to a file first and then execute it.
 ### IMPORTANT: Always check the correct module!
 - TMA dearraying → spmind.tool.unetcoreograph (NOT imaging)
 - Illumination correction → spmind.tool.basic_illumination (NOT imaging)
-- Image stitching → spmind.tool.imaging
+- Image stitching → spmind.tool.registration
 
 ## Container Runtime Note
 SP-Mind tools auto-detect and use available container runtime (Docker, Apptainer, or Singularity).

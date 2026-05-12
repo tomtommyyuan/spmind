@@ -3,7 +3,7 @@
 ## Function Signature
 
 ```python
-from spmind.tool.imaging import stitch_and_register_tiles_ashlar
+from spmind.tool.registration import stitch_and_register_tiles_ashlar
 
 result = stitch_and_register_tiles_ashlar(
     input_dir='/path/to/tiles/',
@@ -16,7 +16,7 @@ result = stitch_and_register_tiles_ashlar(
 ## Cyclic Alignment
 
 ```python
-from spmind.tool.imaging import align_cyclic_images_ashlar
+from spmind.tool.registration import align_cyclic_images_ashlar
 
 result = align_cyclic_images_ashlar(
     input_images=['/path/to/cycle1.ome.tif', '/path/to/cycle2.ome.tif'],
