@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spmind"
+dynamic = ["version"]
+description = "SP-Mind: LLM-based reasoning agent for spatial proteomics analysis"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "SP-Mind Team", email = "tomyyc@stanford.edu"}
+]
+requires-python = ">=3.11"
+dependencies = [
+    "claude-agent-sdk",
+    "pandas",
+    "numpy",
+    "anndata",
+    "scanpy",
+    "scimap",
+    "scikit-learn",
+    "matplotlib",
+]
+
+[project.scripts]
+spmind = "spmind.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/tomtommyyuan/spmind"
+Repository = "https://github.com/tomtommyyuan/spmind"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "spmind.version.__version__"}
+
+[tool.setuptools.packages.find]
+exclude = ["test*", "benchmark*"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+    "F",      # Errors detected by Pyflakes
+    "E",      # Error detected by Pycodestyle
+    "W",      # Warning detected by Pycodestyle
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "TID",    # flake8-tidy-imports
+    "C4",     # flake8-comprehensions
+    "BLE",    # flake8-blind-except
+    "UP",     # pyupgrade
+    "RUF100", # Report unused noqa directives
+    "TCH",    # Typing imports
+]
+ignore = [
+    "E501",
+    "E731",
+    "E741",
+    "E402",
+    "B008",
+    "BLE001",
+    "B005",
+]
