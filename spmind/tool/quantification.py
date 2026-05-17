@@ -114,7 +114,7 @@ def quantify_cells(
     
     # Use ARM64 image on Apple Silicon / ARM64 platforms
     if is_arm64:
-        docker_image = "labsyspharm/mcquant:arm64-local"
+        docker_image = "tomyuanyucheng/mcquant:arm64"
         log.append(f"Detected ARM64 platform ({machine}), using ARM-native image")
     else:
         docker_image = "labsyspharm/mcquant:latest"
