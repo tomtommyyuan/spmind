@@ -23,6 +23,12 @@ dependencies = [
     "matplotlib",
 ]
 
+[project.optional-dependencies]
+benchmark = [
+    "openai",
+    "google-genai",
+]
+
 [project.scripts]
 spmind = "spmind.cli:main"
 
