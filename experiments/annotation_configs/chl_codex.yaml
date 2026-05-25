@@ -1,0 +1,10 @@
+dataset: cHL_CODEX
+gt: data/gt/cHL_CODEX_gt.csv
+pred: data/predictions/cHL_CODEX_pred.csv
+
+model: sentence-transformers/all-MiniLM-L6-v2
+sigma: 0.25
+threshold: 0.80
+generate_descriptions: true
+llm_provider: anthropic
+llm_model: claude-sonnet-4-20250514
