@@ -1,8 +1,8 @@
 dataset: cHL_2_MIBI_5
-gt: data/gt/cHL_2_MIBI_5_gt.csv
-pred: data/predictions/cHL_2_MIBI_5_pred.csv
+gt: cHL_2_MIBI_5_gt.csv
+pred: cHL_2_MIBI_5_pred.csv
 
-model: sentence-transformers/all-MiniLM-L6-v2
+model: Qwen/Qwen3-Embedding-8B
 sigma: 0.25
 threshold: 0.80
 generate_descriptions: true

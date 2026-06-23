@@ -1,8 +1,8 @@
 dataset: cHL_CODEX
-gt: data/gt/cHL_CODEX_gt.csv
-pred: data/predictions/cHL_CODEX_pred.csv
+gt: cHL_CODEX_gt.csv
+pred: cHL_CODEX_pred.csv
 
-model: sentence-transformers/all-MiniLM-L6-v2
+model: Qwen/Qwen3-Embedding-8B
 sigma: 0.25
 threshold: 0.80
 generate_descriptions: true
