@@ -115,7 +115,7 @@ spmind --dangerously-skip-permissions
 Or run a single task non-interactively:
 
 ```bash
-spmind -p "Quantify cells in image.ome.tif using cell.ome.tif as the mask and markers.csv as markers, save the result to ./output" --dangerously-skip-permissions
+spmind -p "Perform cell probability mapping + segmentation on 1.ome.tif, save the result to ./output" --dangerously-skip-permissions
 ```
 
 Useful flags: `--model claude-sonnet-4-5`, `--path ./data`, `-v` (verbose),
