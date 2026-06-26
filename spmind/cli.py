@@ -45,6 +45,12 @@ def main():
     )
 
     parser.add_argument(
+        "-q", "--quiet",
+        action="store_true",
+        help="Suppress intermediate steps and reasoning (interactive mode shows them by default)",
+    )
+
+    parser.add_argument(
         "--path",
         type=str,
         default=None,
@@ -111,8 +117,10 @@ def main():
         result = agent.go(args.prompt, verbose=args.verbose)
         print(result)
     else:
-        # Interactive mode (with optional initial prompt)
-        run_interactive(agent, initial_prompt=args.prompt, verbose=args.verbose)
+        # Interactive mode shows intermediate steps/reasoning by default,
+        # unless --quiet is passed.
+        verbose = not args.quiet
+        run_interactive(agent, initial_prompt=args.prompt, verbose=verbose)
 
 
 def print_help():
@@ -128,6 +136,7 @@ Arguments:
 Options:
   -p, --print                     Print response and exit (non-interactive)
   -v, --verbose                   Show detailed progress
+  -q, --quiet                     Suppress intermediate steps/reasoning (interactive shows them by default)
   --path <path>                   Path to data directory
   --model <model>                 Model to use (e.g., claude-sonnet-4-5)
   --dangerously-skip-permissions  Skip permission prompts (use with caution)
