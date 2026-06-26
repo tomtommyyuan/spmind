@@ -57,6 +57,21 @@ cd spmind
 pip install -e .
 ```
 
+### (Optional) Install scimap for host-side analysis
+
+The clustering and phenotyping steps run `scimap` **inside the tool containers**, so
+`scimap` is not required for the core pipeline and is intentionally left out of the
+package dependencies. If you want `scimap` available in your local environment (e.g.
+for interactive downstream analysis), install it separately. Its published metadata
+pins several outdated versions, so install it without dependencies and then add the
+runtime extras:
+
+```bash
+pip install scimap --no-deps
+pip install combat fast_histogram smart_open requests "gensim>=4.3.2" \
+    shapely plotly mpl-scatter-density PhenoGraph "dask[array]" tifffile
+```
+
 ### Configure your API key
 
 ```bash

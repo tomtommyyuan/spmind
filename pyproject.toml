@@ -18,7 +18,6 @@ dependencies = [
     "numpy",
     "anndata",
     "scanpy",
-    "scimap",
     "scikit-learn",
     "matplotlib",
 ]
