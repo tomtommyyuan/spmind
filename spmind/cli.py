@@ -112,14 +112,19 @@ def main():
         no_skill=args.no_skill,
     )
 
+    # Show intermediate steps/reasoning by default; --quiet suppresses it.
+    verbose = not args.quiet
+
     if args.prompt and args.print_mode:
-        # Print mode: just output the result and exit
-        result = agent.go(args.prompt, verbose=args.verbose)
+        # Print mode: stream the process (unless --quiet), then the final result.
+        result = agent.go(args.prompt, verbose=verbose)
+        if verbose:
+            print("\n" + "=" * 50)
+            print("FINAL RESULT")
+            print("=" * 50)
         print(result)
     else:
-        # Interactive mode shows intermediate steps/reasoning by default,
-        # unless --quiet is passed.
-        verbose = not args.quiet
+        # Interactive mode (with optional initial prompt).
         run_interactive(agent, initial_prompt=args.prompt, verbose=verbose)
 
 
