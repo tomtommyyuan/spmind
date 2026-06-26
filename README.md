@@ -126,7 +126,7 @@ Useful flags: `--model claude-sonnet-4-5`, `--path ./data`, `-v` (verbose),
 ```python
 from spmind.agent import SPMindAgent
 
-agent = SPMindAgent(path="./data", model="claude-sonnet-4-20250514")
+agent = SPMindAgent(path="./data", model="claude-sonnet-4-5")
 
 result = agent.go(
     "Generate illumination correction profiles for the 10 raw cycles in "

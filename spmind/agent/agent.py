@@ -101,6 +101,8 @@ class SPMindAgent:
             path = default_config.path
         if timeout_seconds is None:
             timeout_seconds = default_config.timeout_seconds
+        if model is None:
+            model = default_config.llm
 
         self.timeout_seconds = timeout_seconds
         self.model = model
@@ -241,7 +243,6 @@ class SPMindAgent:
 ### Quantification & Analysis
 - spmind.tool.quantification: quantify_cells, batch_quantify_cells
 - spmind.tool.clustering: cluster_cells, phenotype_cells_supervised
-- spmind.tool.spatial_phlex: run_spatial_phlex_clustering_only, run_spatial_phlex_clustered_barrier
 
 ## How to Use SP-Mind Tools
 

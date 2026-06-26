@@ -26,7 +26,7 @@ class SPMindConfig:
     timeout_seconds: int = 1800
 
     # LLM settings
-    llm: str = "claude-sonnet-4-20250514"
+    llm: str = "claude-sonnet-4-5"
     temperature: float = 0.7
 
     # Tool settings

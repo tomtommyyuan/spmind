@@ -12,7 +12,7 @@ from spmind.agent import SPMindAgent
 class SPMindGradioApp:
     def __init__(self):
         self.agent: SPMindAgent | None = None
-        self.model = os.getenv("SPMIND_MODEL", "claude-sonnet-4-20250514")
+        self.model = os.getenv("SPMIND_MODEL", "claude-sonnet-4-5")
         self._init_agent()
 
     def _init_agent(self):
