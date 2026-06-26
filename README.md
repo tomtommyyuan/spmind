@@ -109,13 +109,13 @@ bash scripts/pull_singularity_images.sh
 The fastest way to start. Launches an interactive session (like Claude Code):
 
 ```bash
-spmind
+spmind --dangerously-skip-permissions
 ```
 
 Or run a single task non-interactively:
 
 ```bash
-spmind -p "Quantify cells in image.ome.tif using cell.ome.tif as the mask and markers.csv as markers, save the result to ./output"
+spmind -p "Quantify cells in image.ome.tif using cell.ome.tif as the mask and markers.csv as markers, save the result to ./output" --dangerously-skip-permissions
 ```
 
 Useful flags: `--model claude-sonnet-4-5`, `--path ./data`, `-v` (verbose),
@@ -149,7 +149,7 @@ For streaming output, use `async for msg in agent.go_stream(prompt): ...`.
 
 ```bash
 python run_agent.py "Segment cells in 1.ome.tif and quantify marker intensities" \
-    --output-dir ./agent_logs
+    --output-dir ./agent_logs --dangerously-skip-permissions
 ```
 
 ### 4. Web interface
