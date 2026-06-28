@@ -1,6 +1,6 @@
 dataset: cHL_2_MIBI_5
-gt: cHL_2_MIBI_5_gt.csv
-pred: cHL_2_MIBI_5_pred.csv
+gt: data/annotation/gt/cHL_2_MIBI_5_gt.csv
+pred: data/annotation/predictions/cHL_2_MIBI_5_pred.csv
 
 model: Qwen/Qwen3-Embedding-8B
 sigma: 0.25

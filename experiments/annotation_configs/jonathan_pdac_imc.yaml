@@ -1,6 +1,6 @@
 dataset: jonathan_pdac_imc
-gt: jonathan_pdac_imc_gt.csv
-pred: jonathan_pdac_imc_pred.csv
+gt: data/annotation/gt/jonathan_pdac_imc_gt.csv
+pred: data/annotation/predictions/jonathan_pdac_imc_pred.csv
 
 model: Qwen/Qwen3-Embedding-8B
 sigma: 0.25

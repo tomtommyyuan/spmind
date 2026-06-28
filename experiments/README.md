@@ -16,8 +16,14 @@ Reproduce the three evaluation tracks from the SPMind paper:
 
 ```bash
 pip install pyyaml numpy pandas scipy
-pip install git+https://github.com/NygenAnalytics/CyteOnto
+# Cell-annotation eval (LLM descriptions -> Qwen3-Embedding-8B -> cosine + GHK):
+pip install sentence-transformers torch anthropic
 ```
+
+The annotation metric is implemented self-contained in `run_annotation_eval.py`
+(no external package needed). Note `Qwen/Qwen3-Embedding-8B` is a large model
+(~16 GB) downloaded on first run; ensure adequate disk and GPU/VRAM, and set
+`ANTHROPIC_API_KEY` for description generation.
 
 ### Download datasets
 
@@ -154,14 +160,18 @@ python run_annotation_eval.py \
 
 ### Metrics
 
-| Metric | Level | Description |
-|--------|-------|-------------|
-| Exact match accuracy | Cluster | Fraction of clusters with identical GT/predicted labels |
-| Semantic match accuracy | Cluster | Fraction where cosine similarity > threshold (default 0.80) |
-| Mean cosine similarity | Cluster | Average cosine similarity across all clusters |
-| Mean GHK similarity | Cluster | Cosine similarity after Gaussian Heat Kernel transform (sigma=0.25) |
-| Cell-level exact accuracy | Cell | Exact match weighted by cluster size |
-| Cell-level semantic accuracy | Cell | Semantic match weighted by cluster size |
+The result JSON reports the following:
+
+| Key | Level | Description |
+|-----|-------|-------------|
+| `ghk_cell_weighted` | Cell | Per-cluster GHK averaged across all cells (weighted by cluster size) |
+| `ghk_cluster_mean` | Cluster | Unweighted mean GHK across clusters |
+| `cosine_cell_weighted` / `cosine_cluster_mean` | Cell / Cluster | Raw cosine similarity, cell-weighted and cluster-mean |
+| `exact_accuracy_cluster` / `exact_accuracy_cell` | Cluster / Cell | Fraction with identical GT/predicted labels |
+| `semantic_accuracy_cluster` / `semantic_accuracy_cell` | Cluster / Cell | Fraction with cosine >= threshold (default 0.80) |
+
+GHK = Gaussian Heat Kernel transform of cosine similarity, centered at 1.0 with
+sigma=0.25: `exp(-(cos-1)^2 / (2*sigma^2))`.
 
 ### Config files
 
@@ -172,7 +182,7 @@ dataset: cHL_1_MIBI
 gt: data/annotation/gt/cHL_1_MIBI_gt.csv
 pred: data/annotation/predictions/cHL_1_MIBI_pred.csv
 
-model: sentence-transformers/all-MiniLM-L6-v2
+model: Qwen/Qwen3-Embedding-8B
 sigma: 0.25
 threshold: 0.80
 generate_descriptions: true

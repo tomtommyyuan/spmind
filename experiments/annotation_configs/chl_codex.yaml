@@ -1,6 +1,6 @@
 dataset: cHL_CODEX
-gt: cHL_CODEX_gt.csv
-pred: cHL_CODEX_pred.csv
+gt: data/annotation/gt/cHL_CODEX_gt.csv
+pred: data/annotation/predictions/cHL_CODEX_pred.csv
 
 model: Qwen/Qwen3-Embedding-8B
 sigma: 0.25
