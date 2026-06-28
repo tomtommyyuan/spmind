@@ -209,7 +209,7 @@ dataset published in:
 > *Coordinated cellular neighborhoods orchestrate antitumoral immunity at the
 > colorectal cancer invasive front.* Cell, 182(5):1341–1359, 2020.
 
-Download the `crc_codex_quant/` folder, which contains 10 TMA regions
+Download the data that contains 10 TMA regions
 (5 from TMA-A, 5 from TMA-B). Each region has two files:
 
 | File | Description |
@@ -222,11 +222,10 @@ Download the `crc_codex_quant/` folder, which contains 10 TMA regions
 For each TMA region you need two CSVs:
 
 - **MCquant output** — the quantification CSV produced by running the SPMind
-  agent's full pipeline (segmentation + quantification) on one of the
-  `crc_codex_quant/` images above.
+  agent's full pipeline (segmentation + quantification) on one of the images above.
 - **Ground truth CSV** — expert-curated quantification with columns of the form
   `MarkerName:Cyc_N_ch_M` (containing per-cell spatial coordinates and marker
-  intensities).
+  intensities). reg*.csv. 
 
 ### Run evaluation
 
