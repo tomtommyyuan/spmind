@@ -169,6 +169,12 @@ python gradio_app.py
   [`experiments/README.md`](experiments/README.md) for full instructions and
   dataset download links.
 
+> [!NOTE]
+> **Model version.** All experiments reported in the paper were run with
+> **Claude Sonnet 4** (`claude-sonnet-4-20250514`). That model has since been
+> retired, so for a smooth out-of-the-box experience the codebase now defaults to
+> **Claude Sonnet 4.5** (`claude-sonnet-4-5`).
+
 The SP-Bench and cell annotation datasets are hosted on
 [Hugging Face](https://huggingface.co/datasets/tomyuanyucheng/spmind):
 

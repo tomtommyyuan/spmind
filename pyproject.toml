@@ -9,7 +9,7 @@ description = "SP-Mind: LLM-based reasoning agent for spatial proteomics analysi
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
-    {name = "SP-Mind Team", email = "tomyyc@stanford.edu"}
+    {name = "SP-Mind Team"}
 ]
 requires-python = ">=3.11"
 dependencies = [
