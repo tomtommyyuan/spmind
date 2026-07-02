@@ -1,5 +1,5 @@
 <h1 align="center">
-🧬 SP-Mind: An Autonomous Reasoning Agent for Spatial Proteomics
+🧬 SP-Mind: An Autonomous Reasoning Agent for Spatial Proteomics (ICML 2026)
 </h1>
 
 <p align="center">
