@@ -9,7 +9,14 @@
 </p>
 
 <p align="center">
-  <img src="spmind_1.png" alt="SP-Mind overview: from raw multiplexed imaging through the agent's skill-guided pipeline to downstream phenotype discovery and benchmark results" width="100%">
+  <video src="https://github.com/tomtommyyuan/spmind/raw/main/assets/spmind_promo_55s_voiceover.mp4" controls muted width="100%"></video>
+</p>
+<p align="center">
+  <em>▶ 55-second overview — if the player doesn't load, <a href="https://github.com/tomtommyyuan/spmind/raw/main/assets/spmind_promo_55s_voiceover.mp4">watch the demo video</a>.</em>
+</p>
+
+<p align="center">
+  <img src="assets/spmind_1.png" alt="SP-Mind overview: from raw multiplexed imaging through the agent's skill-guided pipeline to downstream phenotype discovery and benchmark results" width="100%">
 </p>
 
 ## Abstract
