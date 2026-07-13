@@ -9,10 +9,10 @@
 </p>
 
 <p align="center">
-  <video src="https://github.com/tomtommyyuan/spmind/raw/main/assets/spmind_promo_55s_voiceover.mp4" controls muted width="100%"></video>
+  <video src="https://github.com/user-attachments/assets/bfb34300-3d4f-4960-9d26-89412a211c24" controls muted width="100%"></video>
 </p>
 <p align="center">
-  <em>▶ 55-second overview — if the player doesn't load, <a href="https://github.com/user-attachments/assets/bfb34300-3d4f-4960-9d26-89412a211c24">watch the demo video</a>.</em>
+  <em>▶ 55-second overview — if the player doesn't load, <a href="https://github.com/tomtommyyuan/spmind/raw/main/assets/spmind_promo_55s_voiceover.mp4">watch the demo video</a>.</em>
 </p>
 
 <p align="center">
