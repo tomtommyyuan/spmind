@@ -79,6 +79,19 @@ def main():
     )
 
     parser.add_argument(
+        "--mcp",
+        action="store_true",
+        dest="mcp",
+        help="Expose the SP-Mind toolchain as native MCP tools (off by default)",
+    )
+
+    parser.add_argument(
+        "--sandbox",
+        action="store_true",
+        help="Enable command guardrails that block destructive shell commands",
+    )
+
+    parser.add_argument(
         "--version",
         action="store_true",
         help="Output the version number",
@@ -110,6 +123,8 @@ def main():
         model=args.model,
         permission_mode=permission_mode,
         no_skill=args.no_skill,
+        use_mcp=args.mcp,
+        sandbox=args.sandbox,
     )
 
     # Show intermediate steps/reasoning by default; --quiet suppresses it.
@@ -144,6 +159,8 @@ Options:
   -q, --quiet                     Suppress intermediate steps/reasoning (interactive shows them by default)
   --path <path>                   Path to data directory
   --model <model>                 Model to use (e.g., claude-sonnet-4-5)
+  --mcp                           Expose the toolchain as native MCP tools (off by default)
+  --sandbox                       Block destructive shell commands via guardrails
   --dangerously-skip-permissions  Skip permission prompts (use with caution)
   --version                       Output the version number
   -h, --help                      Display help for command
@@ -155,6 +172,8 @@ def init_agent(
     model: str | None = None,
     permission_mode: str = "default",
     no_skill: bool = False,
+    use_mcp: bool = True,
+    sandbox: bool = False,
 ):
     """Initialize the agent silently."""
     import io
@@ -167,6 +186,8 @@ def init_agent(
             model=model,
             permission_mode=permission_mode,
             no_skill=no_skill,
+            use_mcp=use_mcp,
+            sandbox=sandbox,
         )
     return agent
 

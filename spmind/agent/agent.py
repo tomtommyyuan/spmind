@@ -81,6 +81,8 @@ class SPMindAgent:
         model: str | None = None,
         permission_mode: str = "default",
         no_skill: bool = False,
+        use_mcp: bool = False,
+        sandbox: bool = False,
     ):
         """Initialize the Claude SDK Agent.
 
@@ -93,8 +95,20 @@ class SPMindAgent:
                 (fully autonomous).
             no_skill: If True, disable skill injection except the basic
                 quantification skill for quantification tasks.
+            use_mcp: If True, expose the SP-Mind toolchain as a native MCP
+                server of typed tools; if False (the default), the agent is
+                unchanged and uses the classic prompt-driven ``python -c``
+                interface (the MCP tools are neither visible nor callable).
+            sandbox: If True, install PreToolUse guardrails that block
+                destructive shell commands (recommended with autonomous runs).
         """
         self._session_id: str | None = None
+        self.use_mcp = use_mcp
+        self.sandbox = sandbox
+
+        # Built lazily below when enabled.
+        self._mcp_server = None
+        self._mcp_tool_names: list[str] = []
 
         # Use default_config values for unspecified parameters
         if path is None:
@@ -109,6 +123,19 @@ class SPMindAgent:
         self.permission_mode = permission_mode
         self.no_skill = no_skill
 
+        # Ensure data directory exists
+        os.makedirs(path, exist_ok=True)
+        self.path = path
+
+        # Load tool descriptions
+        self.module2api = read_module2api()
+
+        # Build the native MCP server (typed tools) when enabled.
+        if self.use_mcp:
+            from spmind.tool.mcp_server import build_spmind_mcp_server
+
+            self._mcp_server, self._mcp_tool_names = build_spmind_mcp_server()
+
         # Display configuration
         print("\n" + "=" * 50)
         print("🔧 SP-MIND AGENT CONFIGURATION")
@@ -118,14 +145,9 @@ class SPMindAgent:
             print(f"  Model: {model}")
         print(f"  Permission Mode: {permission_mode}")
         print(f"  Timeout: {timeout_seconds}s")
+        print(f"  Tool interface: {'MCP (native tools)' if self.use_mcp else 'prompt-driven (python -c)'}")
+        print(f"  Sandbox guardrails: {'on' if self.sandbox else 'off'}")
         print("=" * 50 + "\n")
-
-        # Ensure data directory exists
-        os.makedirs(path, exist_ok=True)
-        self.path = path
-
-        # Load tool descriptions
-        self.module2api = read_module2api()
 
         # Skills directory
         self.skills_dir = Path(__file__).parent.parent / "skills"
@@ -211,16 +233,39 @@ class SPMindAgent:
 """
         return self.base_system_prompt
 
+    def _build_mcp_tools_section(self) -> str:
+        """List the native MCP tools so the model prefers them over writing code."""
+        lines = [
+            "## Native SP-Mind Tools (MCP)",
+            "",
+            "You have DIRECT access to the following typed tools. They validate "
+            "inputs and run the containerized backends for you. **Prefer calling "
+            "these tools directly** over writing `python -c` snippets:",
+            "",
+        ]
+        for module_path, descriptions in self.module2api.items():
+            for desc in descriptions:
+                summary = desc.get("description", "").split(". ")[0].strip()
+                lines.append(f"- `mcp__spmind__{desc['name']}` — {summary}")
+        lines.append("")
+        lines.append(
+            "Use the Bash/Read/Write tools for data exploration and for anything "
+            "not covered by the tools above."
+        )
+        return "\n".join(lines)
+
     def _build_base_system_prompt(self) -> str:
         """Build the base system prompt listing available tools and guidelines."""
         tool_modules = list(self.module2api.keys())
         tool_modules_str = "\n".join([f"- {m}" for m in tool_modules])
 
+        mcp_section = f"\n{self._build_mcp_tools_section()}\n" if self.use_mcp else ""
+
         prompt = f"""You are SP-Mind, an expert spatial proteomics data analysis assistant.
 
 ## Your Environment
 - Working directory: {self.path}
-
+{mcp_section}
 ## Available SP-Mind Tool Modules
 {tool_modules_str}
 
@@ -344,6 +389,16 @@ Solve the user's task step by step using the available tools.
 
         if is_resume and self._session_id:
             options_dict["resume"] = self._session_id
+
+        # Expose the SP-Mind toolchain as native MCP tools.
+        if self.use_mcp and self._mcp_server is not None:
+            options_dict["mcp_servers"] = {"spmind": self._mcp_server}
+
+        # Install command guardrails.
+        if self.sandbox:
+            from spmind.agent.sandbox import build_sandbox_hooks
+
+            options_dict["hooks"] = build_sandbox_hooks()
 
         return ClaudeAgentOptions(**options_dict)
 
