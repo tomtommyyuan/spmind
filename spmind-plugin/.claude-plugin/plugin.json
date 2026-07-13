@@ -1,0 +1,12 @@
+{
+  "name": "spmind",
+  "version": "1.0.0",
+  "description": "Spatial proteomics analysis tools (illumination correction, registration, TMA dearraying, segmentation, quantification, clustering) exposed as MCP tools.",
+  "author": {
+    "name": "SP-Mind Team",
+    "email": "tomyyc@stanford.edu",
+    "url": "https://github.com/tomtommyyuan/spmind"
+  },
+  "homepage": "https://github.com/tomtommyyuan/spmind",
+  "repository": "https://github.com/tomtommyyuan/spmind"
+}

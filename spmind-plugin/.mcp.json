@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "spmind": {
+      "command": "python",
+      "args": ["-m", "spmind.mcp_stdio"]
+    }
+  }
+}
