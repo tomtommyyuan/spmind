@@ -30,6 +30,7 @@ benchmark = [
 
 [project.scripts]
 spmind = "spmind.cli:main"
+spmind-mcp = "spmind.mcp_stdio:main"
 
 [project.urls]
 Homepage = "https://github.com/tomtommyyuan/spmind"

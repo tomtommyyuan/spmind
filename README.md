@@ -29,6 +29,19 @@ SP-Mind is built on the **Claude Agent SDK** and ships with:
 - **SP-Bench**, a benchmark of realistic spatial proteomics task queries, plus
   evaluation scripts for cell annotation and quantification.
 
+### Agent Design
+
+- **MCP-native tools (opt-in).** With `--mcp`, the full toolchain is exposed to
+  the agent as a [Model Context Protocol](https://modelcontextprotocol.io) server
+  of typed, schema-validated tools (generated from the tool metadata in
+  [`spmind/tool/tool_description/`](spmind/tool/tool_description/)), rather than as
+  free-form code the model has to write. The same server can be installed into
+  Claude Desktop / Claude Code (see [Use SP-Mind inside Claude](#use-sp-mind-inside-claude)).
+  Off by default, so the base agent's behavior is unchanged.
+- **Sandboxed execution.** An optional `--sandbox` flag installs `PreToolUse`
+  guardrails that block destructive shell commands before they run — a safety
+  layer for fully autonomous (`--dangerously-skip-permissions`) runs.
+
 ### Pipeline Capabilities
 
 | Stage | Module | Backend |
@@ -123,7 +136,8 @@ spmind -p "Perform cell probability mapping + segmentation on 1.ome.tif, save th
 ```
 
 Useful flags: `--model claude-sonnet-4-5`, `--path ./data`, `-v` (verbose),
-`--dangerously-skip-permissions` (fully autonomous).
+`--mcp` (expose the toolchain as native MCP tools), `--sandbox` (block
+destructive shell commands), `--dangerously-skip-permissions` (fully autonomous).
 
 ### 2. Python API
 
@@ -161,6 +175,40 @@ python run_agent.py "Segment cells in 1.ome.tif and quantify marker intensities"
 ```bash
 python gradio_app.py
 ```
+
+### 5. Use SP-Mind inside Claude
+
+Because the toolchain is exposed as an MCP server, you can call the SP-Mind tools
+directly from your own **Claude Code** or **Claude Desktop** session. This is a
+*local* integration — SP-Mind must be `pip install`-ed and its containers pulled
+on your machine, and the tools run locally (nothing is uploaded).
+
+**Option A — add the MCP server directly:**
+
+```bash
+# Claude Code
+claude mcp add spmind -- python -m spmind.mcp_stdio
+```
+
+For **Claude Desktop**, add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "spmind": { "command": "python", "args": ["-m", "spmind.mcp_stdio"] }
+  }
+}
+```
+
+**Option B — install as a Claude Code plugin** (this repo doubles as a plugin
+marketplace):
+
+```bash
+/plugin marketplace add tomtommyyuan/spmind
+/plugin install spmind@spmind
+```
+
+Both options expose the same 19 typed tools.
 
 <br>
 

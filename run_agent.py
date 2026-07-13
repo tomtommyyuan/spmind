@@ -100,7 +100,20 @@ API Configuration:
         dest="no_skill",
         help="Disable skill injection (except quantification basic skill for quantification tasks)",
     )
-    
+
+    parser.add_argument(
+        "--mcp",
+        action="store_true",
+        dest="mcp",
+        help="Expose the SP-Mind toolchain as native MCP tools (off by default)",
+    )
+
+    parser.add_argument(
+        "--sandbox",
+        action="store_true",
+        help="Enable command guardrails that block destructive shell commands",
+    )
+
     parser.add_argument(
         "--verbose", "-v",
         action="store_true",
@@ -205,7 +218,13 @@ API Configuration:
     
     if args.no_skill:
         cmd.append("--no-skill")
-    
+
+    if args.mcp:
+        cmd.append("--mcp")
+
+    if args.sandbox:
+        cmd.append("--sandbox")
+
     # Add the prompt
     cmd.append(prompt)
     
